@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSArray+Funjective.h"
+#include <assert.h>
 
 #define ARRAY(...) [NSArray arrayWithObjects:__VA_ARGS__, nil]
 
@@ -15,6 +16,7 @@ int main(int argc, const char * argv[])
 {
     @autoreleasepool {
         NSArray *arr = ARRAY(@"one", @"two", @"three");
+        NSArray *result;
         
         // each
         [arr each:^(NSString *str, unsigned int index) {
@@ -22,15 +24,21 @@ int main(int argc, const char * argv[])
         }];
          
         // map
-        NSLog(@"%@", [arr map:^(NSString *str, unsigned int index) {
+        result = [arr map:^(NSString *str, unsigned int index) {
             return [str capitalizedString];
-        }]);
+        }];
+        assert([result isEqual:ARRAY(@"One", @"Two", @"Three")]);
         
         // filter
-        NSLog(@"%@", [arr filter:^BOOL (NSString *str, unsigned int index) {
+        result = [arr filter:^BOOL (NSString *str, unsigned int index) {
             return [str length] > 3;
-        }]);
+        }];
+        assert([result isEqual:ARRAY(@"three")]);
+
+        // reverse
+        result = [arr reverse];
         
+        assert([result isEqual:ARRAY(@"three", @"two", @"one")]);
     }
     return 0;
 }

@@ -13,5 +13,6 @@
 - (void)each:(void (^)(id obj, unsigned index))block;
 - (NSArray *)map:(id (^)(id obj, unsigned index))block;
 - (NSArray *)filter:(BOOL (^)(id obj, unsigned index))pred;
+- (NSArray *)reverse;
 
 @end

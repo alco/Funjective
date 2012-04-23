@@ -36,4 +36,13 @@
     return result;
 }
 
+- (NSArray *)reverse
+{
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
+        [result insertObject:obj atIndex:0];
+    }];
+    return result;
+}
+
 @end
